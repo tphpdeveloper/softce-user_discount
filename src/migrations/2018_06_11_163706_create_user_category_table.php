@@ -18,7 +18,7 @@ class CreateUserCategoryTable extends Migration
             $table->integer('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('categoty_id')->nullable();
-            $table->foreign('categoty_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('categoty_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->float('discount', 4, 1);
             $table->timestamps();
         });
