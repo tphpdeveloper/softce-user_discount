@@ -1,6 +1,6 @@
 {
-    "name": "softce/type-of-product",
-    "description": "Module for working with the type of product. Adds the keys of the created product types to the product list table",
+    "name": "softce/user_discount",
+    "description": "Module discounts on the category for the user",
     "authors": [
         {
             "name": "tphpdeveloper",
