@@ -1,11 +1,11 @@
-# Work with module type of product
+# Work with module user discount
 
 **1.**
 ```php
 //write to composer.json
 "require": {
     ...
-    "softce/type-of-product" : "dev-master"
+    "softce/user_discount" : "dev-master"
 }
 
 "autoload": {
@@ -14,7 +14,7 @@
     "psr-4": {
         ... ,
 
-        "Softce\\Type\\" : "vendor/softce/type-of-product/src"
+        "Softce\\UserDiscount\\" : "vendor/softce/user_discount/src"
     }
 }
 ```
@@ -24,7 +24,7 @@
 ```php
 //in console write
 
-composer update softce/type-of-product
+composer update softce/user_discount
 ```
 
 
@@ -34,7 +34,7 @@ composer update softce/type-of-product
 
 'providers' => [
     ... ,
-    Softce\Type\Providers\TypeServiceProvider::class,
+    Softce\UserDiscount\Providers\UserDiscountServiceProvider::class,
 ]
 
 
@@ -56,41 +56,10 @@ php artisan migrate
 
 //for show page slider, in code add next row
 
-{{ route('admin.type.index') }}
+{{ route('admin.user_discount.edit', ['id_user'] ) }}
 
 ```
 
-# How to use in ProductController
-
-**1.**
-```php
-
-//for use functional
-//use dependency injection in the method of building a list of products like
-
- public function index(... , TypeButton $typeofproduct){
- ...
-    $typeofproduct->getButton($model->id)
-    
-    return view(....)
-        ->with('dataGrid', ...)
-        ->with('typeofproduct_script', $typeofproduct->getScript());
- }
- 
-```
-
-**2.**
-```php
-//in view after
-
-{!! $dataGrid->render() !!}
-
-//write
-{{ $typeofproduct_script }}
- 
-
-
-```
 
 # For delete module
 
@@ -99,11 +68,11 @@ php artisan migrate
 
 1.
 //in app.php
-Softce\Type\Providers\TypeServiceProvider::class,
+Softce\UserDiscount\Providers\UserDiscountServiceProvider::class,
 
 2.
 //in composer.json
-"Softce\\Type\\": "vendor/softce/type-of-product/src"
+"Softce\\UserDiscount\\": "vendor/softce/type-of-product/src"
 
 3.
 //in console
