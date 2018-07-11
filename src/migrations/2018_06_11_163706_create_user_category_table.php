@@ -23,7 +23,7 @@ class CreateUserCategoryTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('category_id')->unsigned()->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-            $table->float('discount', 4, 1)->unsigned()->nullable();
+            $table->tinyInteger('discount')->unsigned()->default(0);
             $table->timestamps();
         });
 

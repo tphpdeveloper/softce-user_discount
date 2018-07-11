@@ -38,4 +38,23 @@ class UserDiscount extends AdminController
             ->with('categories', $user->categories);
 
     }
+
+    public function change(Request $request)
+    {
+        $user = User::find($request->user);
+
+        $row = $user->categories()->where('category_id', $request->category_id)->first();
+        if($row->pivot->discount != $request->discount) {
+            $res = $user->categories()->updateExistingPivot($request->category_id, ['discount' => $request->discount]);
+        }
+        else{
+            $res = true;
+        }
+
+        if($res){
+            return response()->json(['status' => 'ok']);
+        }else {
+            return response()->json(["status" => "error", "message" => "Что то пошло не так!\nИли скидка уже записана."]);
+        }
+    }
 }
