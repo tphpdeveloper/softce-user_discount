@@ -44,6 +44,20 @@ php artisan config:cache
 
 **4.**
 ```php
+//Add function to Category model
+public function users(){
+    return $this->belongsToMany(Category::class, 'user_category', 'category_id', 'user_id')->withPivot(['discount']);
+}
+
+
+//Add function to User model
+public function categories(){
+    return $this->belongsToMany(Category::class, 'user_category', 'user_id', 'category_id')->withPivot(['discount']);
+}
+```
+
+**5.**
+```php
 //To work with slides, start the migration
 
 php artisan migrate
@@ -51,12 +65,12 @@ php artisan migrate
 ```
 
 
-**5.**
+**6.**
 ```php
 
-//for show page slider, in code add next row
+//for show page user discount, in code add next row
 
-{{ route('admin.user_discount.edit', ['id_user'] ) }}
+{{ route('admin.user_discount.show', ['id_user'] ) }}
 
 ```
 
@@ -72,11 +86,11 @@ Softce\UserDiscount\Providers\UserDiscountServiceProvider::class,
 
 2.
 //in composer.json
-"Softce\\UserDiscount\\": "vendor/softce/type-of-product/src"
+"Softce\\UserDiscount\\": "vendor/softce/user_discount/src"
 
 3.
 //in console
-composer remove softce/type-of-product
+composer remove softce/user_discount
 
 4.
 // delete -> bootstrap/config/cache.php
@@ -86,13 +100,10 @@ composer remove softce/type-of-product
 php artisan config:cache
 
 6.
-//delete table -> types and product_types
+//delete table -> user_category
 
 7.
-//delete migration -> 2018_05_02_144153_create_types_table 
-//and 2018_05_02_150806_create_product_type_table
+//delete migration -> 2018_06_11_163706_create_user_category_table
 
-8.
-//delete row in admin_menus table -> where name 'Типы товаров'
 ```
 
