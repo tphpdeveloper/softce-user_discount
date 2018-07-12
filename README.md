@@ -74,6 +74,48 @@ php artisan migrate
 
 ```
 
+**7.**
+```php
+//for calculate price product in module "Product.php" in method "getDiscountAttribute"
+//replace code on 
+
+//in header file add
+//use Auth;
+
+public function getDiscountAttribute(){
+    $time_discount_product = $this->checkTimeDiscount($this->discount_from, $this->discount_to);
+
+    $discount = 0;
+
+    $category = $this->categories->first();
+    $time_discount_category = false;
+    if($category) {
+        $time_discount_category = $this->checkTimeDiscount($category->discount_from, $category->discount_to);
+    }
+
+
+    //when user autorize and category have discount
+    if(Auth::check()){
+        $user = Auth::user()->categories()->where('category_id', $category->id)->first();
+        if($user->pivot->discount) {
+            $discount = $user->pivot->discount;
+        }
+    }
+    //discount on product
+    elseif($time_discount_product && !is_null($this->attributes['discount']) && intval($this->attributes['discount']) > 0){
+        $discount = $this->attributes['discount'];
+    }
+    //discount on category
+    elseif($time_discount_category && !is_null($category->discount) && intval($category->discount) > 0 &&  !strpos(URL::current(), 'admin')  ){
+        $discount = $category->discount;
+        $this->attributes['discount_from'] = $category->discount_from;
+        $this->attributes['discount_to'] = $category->discount_to;
+    }
+    return $discount;
+}
+
+```
+
 
 # For delete module
 
